@@ -1,16 +1,27 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, signOut, onAuthStateChanged } 
 from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// 1. Cấu hình Firebase (Lấy từ Firebase Console của bạn)
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "DH52201647.firebaseapp.com",
-    projectId: "DH52201647",
-    storageBucket: "DH52201647.appspot.com",
-    messagingSenderId: "...",
-    appId: "..."
+  apiKey: "AIzaSyCabC9lG_9S-CWkisnnYpu2kQ7HVwplkVc",
+  authDomain: "apisocial-e649a.firebaseapp.com",
+  projectId: "apisocial-e649a",
+  storageBucket: "apisocial-e649a.firebasestorage.app",
+  messagingSenderId: "175811732703",
+  appId: "1:175811732703:web:692ff955777c2b871eb56a",
+  measurementId: "G-W6RDPHTCYQ"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
