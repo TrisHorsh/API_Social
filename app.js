@@ -66,13 +66,36 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // 4. Các hàm Login/Logout (Gắn vào window để gọi được từ HTML onclick)
+// Thêm một biến trạng thái để kiểm tra
+let isProcessing = false;
+
 window.login = (providerName) => {
+    // Nếu đang xử lý thì không cho nhấn tiếp
+    if (isProcessing) return;
+    isProcessing = true;
+
+    // Hiển thị trạng thái đang xử lý (tùy chọn)
+    const btn = providerName === 'google' ? document.getElementById('btnLoginGoogle') : document.getElementById('btnLoginGithub');
+    const originalText = btn.innerText;
+    btn.innerText = "Đang kết nối...";
+
     const provider = providerName === 'google' ? new GoogleAuthProvider() : new GithubAuthProvider();
+    
     signInWithPopup(auth, provider)
-        .then(() => console.log("Đăng nhập thành công"))
+        .then(() => {
+            console.log("Đăng nhập thành công!");
+        })
         .catch(error => {
-            console.error("Lỗi đăng nhập:", error);
-            alert("Lỗi: " + error.message);
+            // Chỉ hiện thông báo nếu không phải lỗi do hủy popup
+            if (error.code !== 'auth/cancelled-popup-request') {
+                alert("Lỗi: " + error.message);
+            }
+            console.error(error.code);
+        })
+        .finally(() => {
+            // Reset lại trạng thái để có thể nhấn lại nếu cần
+            isProcessing = false;
+            btn.innerText = originalText;
         });
 };
 
